@@ -20,3 +20,21 @@ ggplot(gapminder_1952, aes(x = pop, y = lifeExp, color = continent, size = gdpPe
 
 # Scatter plot comparing pop and lifeExp, faceted by continent
 ggplot(gapminder_1952, aes(x = pop, y = lifeExp)) + geom_point() + scale_x_log10() + facet_wrap(~ continent)
+
+# Summarize the median GDP and median life expectancy per continent in 2007
+by_continent_2007 <- gapminder %>%
+  filter(year == 2007) %>%
+  group_by(continent) %>%
+  summarize(medianGdpPercap = median(gdpPercap),
+            medianLifeExp = median(lifeExp))
+
+# Use a scatter plot to compare the median GDP and median life expectancy
+ggplot(by_continent_2007, aes(x = medianGdpPercap, y = medianLifeExp, color = continent)) +
+  geom_point()
+
+
+#line plot
+by_year <- gapminder %>% group_by(year) %>% summarise(medianGdpPercap = median(gdpPercap))
+
+# Create a line plot showing the change in medianGdpPercap over time
+ggplot(by_year, aes(x = year, y = medianGdpPercap)) + geom_line() + expand_limits(y = 0)
