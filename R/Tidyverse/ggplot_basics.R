@@ -38,3 +38,25 @@ by_year <- gapminder %>% group_by(year) %>% summarise(medianGdpPercap = median(g
 
 # Create a line plot showing the change in medianGdpPercap over time
 ggplot(by_year, aes(x = year, y = medianGdpPercap)) + geom_line() + expand_limits(y = 0)
+
+# Summarize the median gdpPercap by continent in 1952
+by_continent <- gapminder %>% filter(year == 1952) %>% group_by(continent) %>% summarise(medianGdpPercap = median(gdpPercap))
+
+# Create a bar plot showing medianGdp by continent
+ggplot(by_continent, aes(x = continent, y = medianGdpPercap)) + geom_col()
+
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952) %>%
+  mutate(pop_by_mil = pop / 1000000)
+
+# Create a histogram of population (pop_by_mil)
+ggplot(gapminder_1952, aes(x = pop_by_mil)) + geom_histogram(bins = 50)
+
+
+gapminder_1952 <- gapminder %>%
+  filter(year == 1952)
+
+# Create a boxplot comparing gdpPercap among continents
+ggplot(gapminder_1952, aes(x = continent, y = gdpPercap)) +
+  geom_boxplot() +
+  scale_y_log10()

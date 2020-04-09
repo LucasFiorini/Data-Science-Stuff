@@ -22,3 +22,5 @@ gapminder %>% mutate(lifeExpMonths = 12 * lifeExp)
 gapminder %>% filter(year == 1957) %>% summarize(medianLifeExp = median(lifeExp))
 
 gapminder %>% group_by(year) %>% summarise(medianLifeExp = median(lifeExp))
+
+
